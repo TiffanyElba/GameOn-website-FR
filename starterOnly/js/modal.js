@@ -13,6 +13,9 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const btnClose = document.querySelector(".close");
 const form = document.querySelector('form');
+const baliseNom = document.getElementById('last');
+const balisePrenom = document.getElementById('first');
+const baliseEmail = document.getElementById('email');
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -29,14 +32,10 @@ btnClose.addEventListener("click", function(){
 
 
 
-// fonction pendant la saisie d'un champ du formulaire 
-const baliseNom = document.getElementById('last');
-const balisePrenom = document.getElementById('first');
-const baliseEmail = document.getElementById('email');
 
 
 
-
+// fonction pour vérifier le champ email
 function verifierEmail(balise) {
   let emailRegEx = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
   if (emailRegEx.test(balise.value)) {
@@ -46,6 +45,7 @@ function verifierEmail(balise) {
   }
 }
 
+// fonction pour vérifier le champ prénom
 function verifierChampPrenom(balise) {
   const errorMessageFirst = document.getElementById('errorMessageFirst');
   const errorMessageLast = document.getElementById('errorMessageLast');
@@ -56,6 +56,7 @@ function verifierChampPrenom(balise) {
   }
 }
 
+// fonction pour vérifier le champ nom
 function verifierChampNom(balise) {
   const errorMessageLast = document.getElementById('errorMessageLast');
   if (balise.value === '' || balise.value.length < 2) {
@@ -65,15 +66,16 @@ function verifierChampNom(balise) {
   }
 }
 
+
 // Ajout d'un écouteur d'événement sur le formulaire pour écouter le submit
 form.addEventListener("submit", (event) => {
-    // On empêche le comportement par défaut
+    // Empêche le comportement par défaut
       event.preventDefault();
 });
 
 
 
-
+// fonction pendant la saisie d'un champ du formulaire
 baliseNom.addEventListener('input', (event) => {
     verifierChampNom(baliseNom);
 });
@@ -87,19 +89,3 @@ baliseEmail.addEventListener('input', (event) => {
 });
 
 
-
-/*
-
-/*function verifierChamp(chaine) {
-  if (chaine.length < 2) {
-    throw new Error(`La chaîne ${chaine} est trop courte`)
-  }
-}
-
-try {
-  verifierChamp(baliseNom.value);
-
-} catch(erreur) {
-  console.log(erreur);
-}
-*/
