@@ -37,11 +37,12 @@ btnClose.addEventListener("click", function(){
 
 // fonction pour vérifier le champ email
 function verifierEmail(balise) {
+  const errorMessageEmail = document.getElementById('errorMessageEmail');
   let emailRegEx = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
   if (emailRegEx.test(balise.value)) {
-    console.log("OK");
+    errorMessageEmail.style.display = "none";
   } else {
-    console.log("ERREUR");
+    errorMessageEmail.style.display = "block";
   }
 }
 
