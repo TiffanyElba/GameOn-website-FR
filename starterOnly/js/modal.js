@@ -46,13 +46,22 @@ function verifierEmail(balise) {
   }
 }
 
-function verifierChamp(balise) {
+function verifierChampPrenom(balise) {
   const errorMessageFirst = document.getElementById('errorMessageFirst');
+  const errorMessageLast = document.getElementById('errorMessageLast');
   if (balise.value === '' || balise.value.length < 2) {
     errorMessageFirst.style.display = "block";
   } else {
     errorMessageFirst.style.display = "none";
-    console.log("OK");
+  }
+}
+
+function verifierChampNom(balise) {
+  const errorMessageLast = document.getElementById('errorMessageLast');
+  if (balise.value === '' || balise.value.length < 2) {
+    errorMessageLast.style.display = "block";
+  } else {
+    errorMessageLast.style.display = "none";
   }
 }
 
@@ -66,11 +75,11 @@ form.addEventListener("submit", (event) => {
 
 
 baliseNom.addEventListener('input', (event) => {
-    verifierChamp(baliseNom);
+    verifierChampNom(baliseNom);
 });
 
 balisePrenom.addEventListener('input', (event) => {
-  verifierChamp(balisePrenom);
+  verifierChampPrenom(balisePrenom);
 });
 
 baliseEmail.addEventListener('input', (event) => {
