@@ -18,6 +18,7 @@ const balisePrenom = document.getElementById('first');
 const baliseEmail = document.getElementById('email');
 const baliseBirthdate = document.getElementById('birthdate');
 const baliseCheckboxCU = document.getElementById('checkbox1');
+const baliseQuantity = document.getElementById('quantity');
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -101,6 +102,14 @@ function verifierCU(balise) {
 }
 
 
+// fonction pour vérifier si le champ du nombre des tournois est valide
+function verifierNbreTournois(balise) {
+  if (balise.value === '') {
+    return false; // indique que le nombre de tournois n'est pas inscrit
+  } else {
+    return true; // indique que le nombre de tournois est inscrit
+  }
+}
 
 
 // fonction pendant la saisie d'un champ du formulaire
@@ -124,13 +133,14 @@ baliseCheckboxCU.addEventListener('input', (event) => {
   verifierCU(baliseCheckboxCU);
 });
 
+baliseQuantity.addEventListener('input', (event) => {
+  verifierNbreTournois(baliseQuantity);
+});
 
 
 
 // Ajout d'un écouteur d'événement sur le formulaire pour écouter le submit
 form.addEventListener("submit", (event) => {
-  // Empêche le comportement par défaut
-  event.preventDefault();
 
   // Appel des fonctions des champs en les stockant dans des variables pour les appeler dans l'envoi du form
   const nomValide = verifierChampNom(baliseNom);
@@ -138,6 +148,7 @@ form.addEventListener("submit", (event) => {
   const emailValide = verifierEmail(baliseEmail);
   const birthdateValide = verifierBirthdate(baliseBirthdate);
   const checkbox1Valide = verifierCU(baliseCheckboxCU);
+  const quantityValide = verifierNbreTournois(baliseQuantity);
   
 
   // Vérification des boutons radio
@@ -160,11 +171,11 @@ form.addEventListener("submit", (event) => {
   }
 
   // Si toutes les validations sont bonnes, soumettre le formulaire
-  if (locationSelected && nomValide && prenomValide && emailValide && birthdateValide  && checkbox1Valide/* ajouter les autres conditions de validation ici */) {
-       // Soumettre le formulaire si toutes les validations passent
-      console.log('OK');
-  }
-
+  if (locationSelected && nomValide && prenomValide && emailValide && birthdateValide && checkbox1Valide && quantityValide/* ajouter les autres conditions de validation ici */) {
+    form.submit();// Soumettre le formulaire si toutes les validations passent
+  } else {
   // Si des validations ne sont pas bonnes, ne pas soumettre le formulaire et garder en l'état ce qu'il était noté par l'utilisateur
+    event.preventDefault();
+  }
 
 });
