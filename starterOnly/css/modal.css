@@ -208,7 +208,13 @@ input {
   display: none;
 }
 
-
+.confirmationMessage {
+  display: none;
+  background-color: #88BE5A;
+  padding: 5px;
+  text-align: center;
+  border-radius: 10px;
+}
 
 .text-control {
   margin: 0;

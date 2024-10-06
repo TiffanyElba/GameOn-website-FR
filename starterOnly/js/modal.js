@@ -20,6 +20,7 @@ const baliseBirthdate = document.getElementById('birthdate');
 const baliseCheckboxCU = document.getElementById('checkbox1');
 const baliseQuantity = document.getElementById('quantity');
 
+
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
@@ -141,7 +142,7 @@ baliseQuantity.addEventListener('input', (event) => {
 
 // Ajout d'un écouteur d'événement sur le formulaire pour écouter le submit
 form.addEventListener("submit", (event) => {
-
+  event.preventDefault();
   // Appel des fonctions des champs en les stockant dans des variables pour les appeler dans l'envoi du form
   const nomValide = verifierChampNom(baliseNom);
   const prenomValide = verifierChampPrenom(balisePrenom);
@@ -171,11 +172,18 @@ form.addEventListener("submit", (event) => {
   }
 
   // Si toutes les validations sont bonnes, soumettre le formulaire
-  if (locationSelected && nomValide && prenomValide && emailValide && birthdateValide && checkbox1Valide && quantityValide/* ajouter les autres conditions de validation ici */) {
-    form.submit();// Soumettre le formulaire si toutes les validations passent
+  if (locationSelected && nomValide && prenomValide && emailValide && birthdateValide && checkbox1Valide && quantityValide) {
+    const confirmationMessage = document.getElementById('confirmationMessage');
+    confirmationMessage.style.display = "block";
+    modalbg.style.display = "none";
+    document.documentElement.scrollTop = 0; // Ramène l'utilisateur en haut de page
+    
+    setTimeout(() => {
+      form.submit(); // Soumettre le formulaire
+  }, 2000); 
+
   } else {
-  // Si des validations ne sont pas bonnes, ne pas soumettre le formulaire et garder en l'état ce qu'il était noté par l'utilisateur
-    event.preventDefault();
+    console.log('echec');
   }
 
 });
