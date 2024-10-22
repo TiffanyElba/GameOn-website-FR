@@ -8,7 +8,8 @@ function editNav() {
 }
 
 // DOM Elements
-const modalbg = document.querySelector(".bground");
+const modalbg = document.getElementById("bground1");
+const modalBody = document.querySelector(".modal-body");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const btnClose = document.querySelector(".close");
@@ -19,6 +20,8 @@ const baliseEmail = document.getElementById('email');
 const baliseBirthdate = document.getElementById('birthdate');
 const baliseCheckboxCU = document.getElementById('checkbox1');
 const baliseQuantity = document.getElementById('quantity');
+const modalbgConfirmation = document.getElementById('modal-bodyConfirmation');
+const btnCloseConfirm = document.getElementById('buttonConfirm');
 
 
 // launch modal event
@@ -26,6 +29,8 @@ modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 // launch modal form
 function launchModal() {
+  modalbgConfirmation.style.display = "none";
+  modalBody.style.display = "block";
   modalbg.style.display = "block";
 }
 
@@ -79,15 +84,59 @@ function verifierChampNom(balise) {
 
 // fonction pour vérifier le champ birthdate
 function verifierBirthdate(balise) {
+  const today = new Date();
   const errorMessageBirthdate = document.getElementById('errorMessageBirthdate');
+  const errorMessageBirthdateToday = document.getElementById('errorMessageBirthdateToday');
+  const errorMessageBirthdateFormat = document.getElementById('errorMessageBirthdateFormat');
+  
+  const dateRegex = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/(\d{4})$/;
+
+  // Vérification si la valeur de balise est vide
   if (balise.value === '') {
-    errorMessageBirthdate.style.display = "block";
-    return false; // indique que la date est invalide
-  } else {
-    errorMessageBirthdate.style.display = "none";
-    return true; // indique que la date est valide
+      errorMessageBirthdate.style.display = "block";
+      errorMessageBirthdateToday.style.display = "none"; // Masquer l'autre message d'erreur
+      return false; // indique que la date est invalide
+  } 
+  
+  // Vérification si la date est au format jj/mm/aaaa
+  if (!dateRegex.test(balise.value)) {
+      errorMessageBirthdateFormat.style.display = "block";
+      errorMessageBirthdate.style.display = "none"; // Afficher le message d'erreur
+      errorMessageBirthdateToday.style.display = "none"; // Masquer l'autre message d'erreur
+      return false; // indique que la date est invalide
+  }
+
+  // Conversion de la date saisie en objet Date
+  const dateParts = balise.value.split('/');
+  const day = parseInt(dateParts[0], 10);
+  const month = parseInt(dateParts[1], 10) - 1; // Mois de 0 à 11
+  const year = parseInt(dateParts[2], 10);
+
+  // Créer l'objet Date à partir des valeurs saisies
+  const inputDate = new Date(year, month, day);
+
+  // Vérification si la date saisie est supérieure à aujourd'hui
+  if (inputDate > today) {
+      errorMessageBirthdateToday.style.display = "block"; // Afficher le message
+      errorMessageBirthdate.style.display = "none"; // Masquer le message d'erreur principal
+      errorMessageBirthdateFormat.style.display = "none";
+      return false; // Indique que la date est invalide
+  } 
+  
+  // Vérification si la date saisie est antérieure à 1900
+  if (year < 1900) {
+      errorMessageBirthdate.style.display = "block"; // Afficher le message d'erreur pour année trop ancienne
+      errorMessageBirthdateFormat.style.display = "none"; // Masquer le message d'erreur principal
+      errorMessageBirthdateToday.style.display = "none"; // Masquer l'autre message
+      return false; // Indique que la date est invalide
+    } else {
+      errorMessageBirthdate.style.display = "none"; // Masquer le message d'erreur principal si la date est valide
+      errorMessageBirthdateToday.style.display = "none"; // Masquer l'autre message
+      errorMessageBirthdateFormat.style.display = "none";
+      return true; // Indique que la date est valide
   }
 }
+
 
 
 // fonction pour vérifier si le champ des conditions d'utilisation est coché
@@ -105,9 +154,12 @@ function verifierCU(balise) {
 
 // fonction pour vérifier si le champ du nombre des tournois est valide
 function verifierNbreTournois(balise) {
-  if (balise.value === '') {
+  const errorMessageQuantity = document.getElementById('errorMessageQuantity');
+  if (balise.value === '' || balise.value < 0) {
+    errorMessageQuantity.style.display = "block";
     return false; // indique que le nombre de tournois n'est pas inscrit
   } else {
+    errorMessageQuantity.style.display = "none";
     return true; // indique que le nombre de tournois est inscrit
   }
 }
@@ -137,6 +189,7 @@ baliseCheckboxCU.addEventListener('input', (event) => {
 baliseQuantity.addEventListener('input', (event) => {
   verifierNbreTournois(baliseQuantity);
 });
+
 
 
 
@@ -171,19 +224,21 @@ form.addEventListener("submit", (event) => {
       errorMessageOption.style.display = "none"; // Cache le message d'erreur si un bouton est sélectionné
   }
 
+
   // Si toutes les validations sont bonnes, soumettre le formulaire
-  if (locationSelected && nomValide && prenomValide && emailValide && birthdateValide && checkbox1Valide && quantityValide) {
-    const confirmationMessage = document.getElementById('confirmationMessage');
-    confirmationMessage.style.display = "block";
-    modalbg.style.display = "none";
-    document.documentElement.scrollTop = 0; // Ramène l'utilisateur en haut de page
-    
-    setTimeout(() => {
-      form.submit(); // Soumettre le formulaire
-  }, 2000); 
-
-  } else {
-    console.log('echec');
-  }
-
+  if (
+    locationSelected &&
+    nomValide &&
+    prenomValide &&
+    emailValide &&
+    birthdateValide &&
+    checkbox1Valide &&
+    quantityValide
+  ) {
+      modalbgConfirmation.style.display = "block"; // Affiche la modal de confirmation
+      modalBody.style.display = "none"; // Masque la modal body
+    } else {
+      console.log("Erreur de validation");
+    }
 });
+

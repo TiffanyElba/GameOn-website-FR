@@ -30,10 +30,6 @@
     </div>
   </div>
     <main>
-      <div class="confirmationMessage" id="confirmationMessage">
-        <p class="merci">Merci !</p>
-        <p>Nous avons bien reçu votre formulaire.</p>
-      </div> <br>
 
       <div class="hero-section">
         <div class="hero-content">
@@ -57,10 +53,33 @@
         </button>
       </div>
 
-      <div class="bground">
+      <!--<div class="bground">
         <div class="content">
           <span class="close"></span>
+
+          <div class="modal-body" id="modal-bodyConfirmation">
+            <p>Merci pour votre confirmation</p>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="bground" id="bground1">
+        <div class="content">
+          <span class="close"></span>
+
+         <!-- <div class="modal-body" id="modal-bodyConfirmation">
+            <p>Merci pour votre inscription</p>
+          </div>-->
+
+          <div class="modal-bodyConfirmation" id="modal-bodyConfirmation">
+            <p>Merci pour votre inscription</p>
+            <button class="buttonConfirm" id="buttonConfirm">Fermer</button>
+          </div>
+
           <div class="modal-body">
+
+
+
             <form
               name="reserve"
               action="./index.html"
@@ -105,17 +124,21 @@
                 <label for="birthdate">Date de naissance</label><br>
                 <input
                   class="text-control"
-                  type="date"
+                  type="text"
                   id="birthdate"
                   name="birthdate"
+                  placeholder="JJ/MM/AAAA"
                 /><br>
-                <p class="errorMessage" id="errorMessageBirthdate">Vous devez entrer votre date de naissance.</p>
+                <p class="errorMessage" id="errorMessageBirthdate">Vous devez entrer une date de naissance valide.</p>
+                <p class="errorMessage" id="errorMessageBirthdateToday">Vous devez entrer une date de naissance antérieure à la date.</p>
+                <p class="errorMessage" id="errorMessageBirthdateFormat">Vous devez utiliser le format JJ/MM/AAAA</p>
                 <br>
               </div>
               <div
                 class="formData">
                 <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
                 <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
+                <p class="errorMessage" id="errorMessageQuantity">Vous devez entrer un chiffre.</p>
               </div>
               <p class="text-label">A quel tournoi souhaitez-vous participer cette année ?</p>
               <div
