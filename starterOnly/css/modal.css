@@ -68,11 +68,33 @@ img {
   display: none;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 540px) {
   .topnav a {display: none;}
   .topnav a.icon {
     float: right;
     display: block;
+    margin-top: -15px;
+  }
+} 
+
+@media screen and (max-width: 768px) {
+  .topnav a {
+    display: none;
+  }
+  .topnav a.icon {
+    float: right;
+    display: block;
+    color: #fe142f;
+    font-size: 35px;
+  }
+  .header-logo {
+    padding-top: 10px;
+  }
+  #bground1 {
+    background-color: transparent;
+  }
+  .content {
+    margin: 15% auto;
   }
 }
 
@@ -88,18 +110,21 @@ img {
     display: block;
     text-align: left;
   }
+
+  .content {
+    margin: 15% auto;
+  }
+ 
 }
 
-
-
- @media screen and (max-width: 540px) {
-  .topnav a {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-    margin-top: -15px;
+@media screen and (min-width: 768px) {
+  .content {
+    max-width: 500px;
+    margin: 5% auto;
   }
-} 
+
+
+}
 
 main {
   font-size: 130%;
@@ -189,9 +214,8 @@ main {
 
 
 .content {
-  margin: 5% auto;
+  margin: 15% auto;
   width: 100%;
-  max-width: 500px;
   animation-name: modalopen;
   animation-duration: var(--modal-duration);
   background: #232323;
