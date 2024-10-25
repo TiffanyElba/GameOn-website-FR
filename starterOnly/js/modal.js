@@ -23,9 +23,9 @@ const baliseQuantity = document.getElementById('quantity');
 const modalbgConfirmation = document.getElementById('modal-bodyConfirmation');
 const btnCloseConfirm = document.getElementById('buttonConfirm');
 
-
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+btnClose.addEventListener('click', closeModal);
 
 // launch modal form
 function launchModal() {
@@ -34,13 +34,9 @@ function launchModal() {
   modalbg.style.display = "block";
 }
 
-// fonction pour fermer la modal 
-btnClose.addEventListener("click", function(){
-  modalbg.style.display = "none";
-});
-
-
-
+function closeModal() {
+  modalbg.style.display = 'none'; // Cache la modale
+}
 
 
 
@@ -240,5 +236,11 @@ form.addEventListener("submit", (event) => {
     } else {
       console.log("Erreur de validation");
     }
+
+    btnCloseConfirm.addEventListener("click", function(){
+      modalbg.style.display = "none";
+      modalbgConfirmation.style.display = "none";
+    });
+    
 });
 
