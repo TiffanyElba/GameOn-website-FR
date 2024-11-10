@@ -233,6 +233,8 @@ form.addEventListener("submit", (event) => {
   ) {
       modalbgConfirmation.style.display = "block"; // Affiche la modal de confirmation
       modalBody.style.display = "none"; // Masque la modal body
+    // Réinitialise le formulaire
+    form.reset();
     } else {
       console.log("Erreur de validation");
     }
